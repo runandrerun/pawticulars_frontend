@@ -1,27 +1,10 @@
-const initialState = {
-  users: [],
-  dogs: [],
-  selectedUser: {},
-  selectedDog: {},
-  communities: []
-}
+import { combineReducers } from 'redux';
+import userReducer from './userReducer';
+import dogReducer from './dogReducer';
 
-const reducer = (state = initialState, action) => {
-  switch(action.type) {
-    case 'LOAD_USERS':
-    return {
-      ...state,
-      users: action.payload.users
-    }
+const rootReducer = combineReducers({
+  userState: userReducer,
+  dogState: dogReducer
+})
 
-    case 'SELECT_USER':
-    return {
-      ...state,
-      selectedUser: action.payload.user
-    }
-    default:
-    return state
-  }
-}
-
-export default reducer
+export default rootReducer;
