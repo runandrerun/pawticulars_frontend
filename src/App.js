@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import UserContainer from './containers/UserContainer';
 import { loadUsers } from './actions';
 import { connect } from 'react-redux';
+// import NavBar from './components/NavBar';
+import Nav from './components/Nav';
 
 class App extends Component {
   componentDidMount() {
@@ -12,7 +14,10 @@ class App extends Component {
   render() {
     console.log(this.props.loadUsers())
     return (
-      <UserContainer />
+      <div>
+        <Nav />
+        <UserContainer />
+      </div>
     );
   }
 }

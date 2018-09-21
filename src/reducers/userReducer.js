@@ -22,6 +22,7 @@ const userReducer = (state = initialState, action) => {
       ...state,
       selectedUserDog: action.payload.user
     }
+
     default:
     return state
   }
