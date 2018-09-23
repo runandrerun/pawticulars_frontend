@@ -21,7 +21,7 @@ export const loadUser = (user) => {
   return (dispatch) => {
     fetchUser(user)
       .then(userRes => {
-        dispatch(currentUser(user))
+        dispatch(currentUser(userRes))
       })
   }
 }

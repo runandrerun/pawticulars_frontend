@@ -20,7 +20,7 @@ export const fetchUsers = () => {
 }
 
 export const fetchUser = (user) => {
-  return fetch(`http://localhost:3000/users/${user.id}`)
+  return fetch(`http://localhost:3000/users/${user}`)
   .then(res => res.json())
 }
 

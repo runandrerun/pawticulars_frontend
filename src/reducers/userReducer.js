@@ -1,6 +1,7 @@
 const initialState = {
   users: [],
   selectedUser: {},
+  currentUser: {}
 }
 
 const userReducer = (state = initialState, action) => {
@@ -9,6 +10,12 @@ const userReducer = (state = initialState, action) => {
     return {
       ...state,
       users: action.payload.users
+    }
+
+    case 'CURRENT_USER':
+    return {
+      ...state,
+      currentUser: action.payload.user
     }
 
     case 'SELECT_USER':
