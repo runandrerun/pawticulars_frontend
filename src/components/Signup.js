@@ -1,7 +1,9 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Segment } from 'semantic-ui-react';
 
 const Signup = () => (
+  <Segment>
   <div>
     <h1>Any place in your app!</h1>
     <Formik
@@ -37,6 +39,7 @@ const Signup = () => (
       )}
     </Formik>
   </div>
+  </Segment>
 );
 
 export default Signup;

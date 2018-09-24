@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import UserCard from './UserCard';
-import { Container, Header, Card, Divider, Grid } from 'semantic-ui-react'
+import { Container, Header, Card, Divider, Grid, Rail, Segment } from 'semantic-ui-react'
 import DogCard from '../components/DogCard';
 
 class UserContainer extends Component {
@@ -18,16 +18,26 @@ class UserContainer extends Component {
     // console.log(this.props.user.dogs)
     return (
       <div>
-      <Container text>
+      <Grid centered columns={3}>
+      <Grid.Column>
+      <Segment padded='very' color='red'>
       <Header as='h2' textAlign="center">Welcome {this.props.user.display_name}!</Header>
       <Divider />
 
-          <Card.Group>
-                <UserCard user={this.props.user} />
-                {this.props.user.dogs ? this.userDogs() : null}
-          </Card.Group>
 
-        </Container>
+          <Card.Group>
+          <Rail close='very' position='left'>
+                <UserCard user={this.props.user} />
+                </Rail>
+                <Rail close='very' position='right'>
+                {this.props.user.dogs ? this.userDogs() : null}
+                </Rail>
+          </Card.Group>
+          </Segment>
+          </Grid.Column>
+          </Grid>
+
+
       </div>
     )
   }

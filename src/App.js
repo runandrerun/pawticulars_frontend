@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import UserContainer from './containers/UserContainer';
 import { loadUser } from './actions';
 import { connect } from 'react-redux';
-import Signup from './components/Signup';
+import Signup from './forms/Signup';
 import Nav from './components/Nav';
+import { Route, Redirect } from 'react-router-dom';
 
 class App extends Component {
 
@@ -18,8 +19,10 @@ class App extends Component {
     return (
       <div>
         <Nav />
-        <UserContainer />
-        <Signup />
+        <Route exact path='/' render={() => <UserContainer />}/>
+        <Route exact path='/signup' render={() => <Signup />}/>
+        <Route exact path='/dogparks' render={() => <UserContainer />}/>
+        <Route exact path='/dogs' render={() => <UserContainer />}/>
       </div>
     );
   }

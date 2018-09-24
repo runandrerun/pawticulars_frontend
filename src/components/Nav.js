@@ -20,6 +20,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import Menu from "@material-ui/core/Menu";
 import "../index.scss";
+import { Link } from 'react-router-dom';
 
 // import { mailFolderListItems, otherMailFolderListItems } from './tileData';
 
@@ -158,8 +159,8 @@ class Nav extends React.Component {
           </IconButton>
         </div>
         <Divider />
-          <MenuItem> Dogs </MenuItem>
-          <MenuItem> Dog Parks </MenuItem>
+          <MenuItem><Link to='/dogs'>Dogs</Link></MenuItem>
+          <MenuItem><Link to='/dogparks'>Dog Parks</Link></MenuItem>
         <Divider />
       </Drawer>
     );
@@ -225,8 +226,8 @@ class Nav extends React.Component {
                     open={open}
                     onClose={this.handleClose}
                   >
-                    <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                    <MenuItem onClick={this.handleClose}><Link to='/'>Profile</Link></MenuItem>
+                    <MenuItem onClick={this.handleClose}><Link to='/profile'>My account</Link></MenuItem>
                   </Menu>
                 </div>
               )}
