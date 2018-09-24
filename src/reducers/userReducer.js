@@ -1,6 +1,7 @@
 const initialState = {
   users: [],
   selectedUser: {},
+  authenticating: true,
   currentUser: {}
 }
 
@@ -28,6 +29,13 @@ const userReducer = (state = initialState, action) => {
     return {
       ...state,
       selectedUserDog: action.payload.user
+    }
+
+    case 'LOGIN_USER':
+    return {
+      ...state,
+      authenticating: false,
+      currentUser: action.payload.user
     }
 
     default:

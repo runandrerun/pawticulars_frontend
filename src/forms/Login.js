@@ -1,63 +1,70 @@
 import React, { Component } from 'react';
 import { Button, Form, Input } from 'formik-semantic-ui';
+import { Header, Container, Segment } from 'semantic-ui-react';
+import { logUser } from '../actions';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
-  static defaultProps = {
-    person: {
-      emailAddress: '',
+  state = {
+    user: {
       username: '',
       password: '',
     },
   };
   _handleSubmit = (values, formikApi) => {
     // Make API Call
-    console.log(values, formikApi);
+    // console.log(values, formikApi);
+    // console.log('values:',values)
+    // console.log('formikApi', formikApi)
     // Handle response / Errors
+    this.props.logUser(values)
     // formikApi.setFieldError('emailAddress', 'Invalid Email');
     // formikApi.setSubmitting(false);
   };
 
-  render() {
-    return (
-      <Form initialValues={this.props.person} onSubmit={this._handleSubmit}>
-        <Input label="Email" name="emailAddress" />
+  // handleChange = (e) => {
+  //   console.log(e.target.value)
+  //   this.setState({
+  //     [e.target.name]: e.target.value
+  //   })
+  // }
 
-        <Form.Group widths="2">
-          <Input label="Username" name="username" />
-          <Input label="Password" name="password" />
-        </Form.Group>
+  render() {
+    console.log('Login', this.props.authenticated)
+    if (this.props.authenticated === false) {
+      return <Redirect to='/'/>
+    } else {
+    return (
+    <Container style={{paddingTop: 50}}>
+      <Header as='h2' attached='top'>Login</Header>
+      <Segment attached>
+      <Form onSubmit={this._handleSubmit}>
+
+
+
+          <Input label="Username" name="username"
+          onChange={this.handleChange}
+           />
+          <Input label="Password" name="password"
+          onChange={this.handleChange}/>
+
 
         <Button.Submit>Submit</Button.Submit>
         <Button.Reset>Cancel</Button.Reset>
       </Form>
+      </Segment>
+    </Container>
     );
+    }
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+  console.log(state)
+  return {
+    authenticated: state.userState.authenticating
+  }
+}
 
-
-// <Form.Group widths="2">
-//
-// <Dropdown
-//   label="Gender"
-//   name="gender"
-//   options={[
-//     { text: 'Female', value: 'F' },
-//     { text: 'Male', value: 'M' },
-//   ]}
-// />
-// </Form.Group>
-  // <TextArea label="Bio" name="bio" />
-// <DatePicker
-//   label="D.O.B."
-//   name="dob"
-//   inputProps={{
-//     isOutsideRange: day => !moment(day).isSameOrBefore(moment()),
-//     renderMonthElement: props => (
-//       <DatePicker.YearMonthSelector {...props} />
-//     ),
-//   }}
-// />
-
-// <FileUpload label="Profile Picture Upload" name="fileUrl" />
+export default connect(mapStateToProps, { logUser })(Login);

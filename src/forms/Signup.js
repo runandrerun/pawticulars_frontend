@@ -30,7 +30,7 @@ class ExampleForm extends Component {
 
       <Container style={{paddingTop: 50}}>
       <Header as='h2' attached="top">Signup</Header>
-    <Segment>
+    <Segment attached>
       <Form
         initialValues={{
           emailAddress: '',

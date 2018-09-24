@@ -39,3 +39,32 @@ export const createUser = (user) => {
   return fetch(url, options)
   .then(res => res.json())
 }
+
+export const loginUser = (userData) => {
+  console.log('login', userData)
+  return fetch(`http://localhost:3000/login`, {
+    method: 'POST',
+    body: JSON.stringify({user: {username: userData.username, password: userData.password}}),
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  })
+  .then(res => res.json())
+}
+
+// export const reAuth = () => {
+//   if (localStorage.getItem('token')) {
+//     fetch(`http://localhost:3000/reauth`, {
+//       method: 'GET',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Accept': 'application/json',
+//         'Authorization': localStorage.getItem('token')
+//       }
+//     })
+//     .then(res => res.json())
+//   } else {
+//
+//   }
+// }
