@@ -1,5 +1,5 @@
 import { fetchDog, fetchDogs, fetchUpdateDog, createDog } from '../adapters/dogsAdapter';
-import { fetchUser, fetchUsers, fetchUpdateUser, createUser, loginUser } from '../adapters/usersAdapter'
+import { fetchUser, fetchUsers, fetchUpdateUser, createUser, loginUser, reAuth } from '../adapters/usersAdapter'
 
 export const selectUser = (user) => {
   return {
@@ -45,7 +45,43 @@ export const logUser = (userData) => {
   }
 }
 
+export const logout = () => {
+  localStorage.clear()
+  return (dispatch) => {
+    dispatch(logoutCurrentUser())
+  }
+}
+
+export const auth = (token) => {
+  return (dispatch) => {
+    console.log('token', token)
+    reAuth(token)
+    .then(res => {
+      console.log('Inside Auth', res)
+      dispatch(authenticateUser(res))
+    })
+  }
+}
+
 ////////
+
+const authenticateUser = (user) => {
+  return {
+    type: 'AUTH_USER',
+    payload: {
+      user
+    }
+  }
+}
+
+const logoutCurrentUser = () => {
+  return {
+    type: 'LOGOUT_USER',
+    payload: {
+      user: {}
+    }
+  }
+}
 
 const setUsers = (users) => {
   return {

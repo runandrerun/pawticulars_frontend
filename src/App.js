@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import MainPage from './containers/MainPage';
 import UserContainer from './containers/UserContainer';
-import { loadUser } from './actions';
+import { loadUser, auth } from './actions';
 import { connect } from 'react-redux';
 import Signup from './forms/Signup';
 import Login from './forms/Login';
@@ -10,13 +10,44 @@ import { Route, Redirect } from 'react-router-dom';
 
 class App extends Component {
 
-  // componentDidMount() {
-  //   // const loggedIn = {id: 1, username: "runandre", password: "123", email: "coolio@cool.com", location: "Bronx, NY", avatar: "img", display_name: "dreday"}
-  //   this.props.loadUser(1)
-  // }
+  componentDidMount() {
+    if (localStorage.getItem('token')) {
+      const token = localStorage.getItem('token')
+      this.props.auth(token)
+    } else {
+      console.log(this.props)
+    }
+  }
+ //
+ //  componentDidMount () {
+ //   if (localStorage.getItem('token')) {
+ //     const options = {
+ //       headers : {
+ //         'Content-Type': 'application/json',
+ //         Accept: 'application/json',
+ //         Authorization: localStorage.getItem('token')
+ //       }
+ //     }
+ //     fetch('http://localhost:3000/api/v1/reauth', options)
+ //     .then(resp => resp.json())
+ //     .then(resp => {
+ //       this.handleLoginUser(resp.user)
+ //     })
+ //   } else {
+ //     this.setState((prevState) => {
+ //        return {
+ //          auth: {
+ //            ...prevState.auth,
+ //            authenticating: false
+ //          }
+ //        }
+ //     })
+ //   }
+ // }
+
 
   render() {
-    console.log(this.props.user)
+    console.log(this.props)
     const loggedIn = !!this.props.user.id
     console.log('loggedIn', loggedIn)
     return (
@@ -38,4 +69,4 @@ const mapStateToProps = (state) => {
     user: state.userState.currentUser
   }
 }
-export default connect(mapStateToProps, { loadUser })(App);
+export default connect(mapStateToProps, { loadUser, auth })(App);

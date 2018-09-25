@@ -20,7 +20,9 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import Menu from "@material-ui/core/Menu";
 import "../index.scss";
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { logout } from '../actions';
+import { connect } from 'react-redux';
 
 // import { mailFolderListItems, otherMailFolderListItems } from './tileData';
 
@@ -128,14 +130,14 @@ class Nav extends React.Component {
   };
 
   handleChange = event => {
-    this.setState({ auth: event.target.checked });
+    this.setState({ auth: event.target.checked }, () => this.props.logout());
   };
 
   handleMenu = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
-  handleClose = () => {
+  handleClose = (e) => {
     this.setState({ anchorEl: null });
   };
 
@@ -173,7 +175,7 @@ class Nav extends React.Component {
     } else {
       after = drawer;
     }
-
+    // console.log('Logout function', this.props.logout)
     return (
       <div className={classes.root}>
         <div className={classes.appFrame}>
@@ -226,8 +228,8 @@ class Nav extends React.Component {
                     open={open}
                     onClose={this.handleClose}
                   >
-                    <MenuItem onClick={this.handleClose}><Link to='/'>Profile</Link></MenuItem>
-                    <MenuItem onClick={this.handleClose}><Link to='/profile'>My account</Link></MenuItem>
+                    <MenuItem onClick={this.handleClose}><Link to='/profile'>Profile</Link></MenuItem>
+                    <MenuItem onClick={this.handleClose}><Link to='/login'>Login</Link></MenuItem>
                   </Menu>
                 </div>
               )}
@@ -240,7 +242,7 @@ class Nav extends React.Component {
                       aria-label="LoginSwitch"
                     />
                   }
-                  label={auth ? "" : ""}
+                  label={this.props.authenticated === false ? 'Logged In' : 'Logged Out'}
                 />
               </FormGroup>
 
@@ -262,7 +264,14 @@ Nav.propTypes = {
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(Nav);
+const mapStateToProps = (state) => {
+  console.log(state)
+  return {
+    authenticated: state.userState.authenticating
+  }
+}
+
+export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, { logout })(Nav));
 
 // <main
 //   className={classNames(classes.content, classes[`content-${anchor}`], {

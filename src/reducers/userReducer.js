@@ -38,6 +38,20 @@ const userReducer = (state = initialState, action) => {
       currentUser: action.payload.user
     }
 
+    case 'LOGOUT_USER':
+    return {
+      ...state,
+      authenicating: true,
+      currentUser: action.payload.user
+    }
+
+    case 'AUTH_USER':
+    return {
+      ...state,
+      authenticating: false,
+      currentUser: action.payload.user
+    }
+
     default:
     return state
   }

@@ -41,7 +41,6 @@ export const createUser = (user) => {
 }
 
 export const loginUser = (userData) => {
-  console.log('login', userData)
   return fetch(`http://localhost:3000/login`, {
     method: 'POST',
     body: JSON.stringify({user: {username: userData.username, password: userData.password}}),
@@ -51,6 +50,18 @@ export const loginUser = (userData) => {
     }
   })
   .then(res => res.json())
+}
+
+export const reAuth = (token) => {
+  const options = {
+        headers : {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: token
+        }
+      }
+  return fetch('http://localhost:3000/reauth', options)
+    .then(resp => resp.json())
 }
 
 // export const reAuth = () => {
