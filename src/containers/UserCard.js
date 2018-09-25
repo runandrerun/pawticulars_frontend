@@ -12,11 +12,12 @@ const userPups = (
 )
 
 const UserCard = ({user}) => (
+
   <Card
     image={require('./andre.jpg')}
     header={user.username}
     meta={user.location}
-    description="I'm Andre! I love to code, and have a dope dog named Panda!"
+    description={user.bio}
     extra={userPups}
     centered={true}
     raised={true}

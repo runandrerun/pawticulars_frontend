@@ -54,10 +54,9 @@ export const logout = () => {
 
 export const auth = (token) => {
   return (dispatch) => {
-    console.log('token', token)
     reAuth(token)
     .then(res => {
-      console.log('Inside Auth', res)
+      console.log('Inside Actions', res)
       dispatch(authenticateUser(res))
     })
   }

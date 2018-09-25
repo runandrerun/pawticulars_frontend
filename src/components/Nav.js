@@ -265,7 +265,6 @@ Nav.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     authenticated: state.userState.authenticating
   }

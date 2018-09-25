@@ -15,7 +15,7 @@ class UserContainer extends Component {
 
 
   render() {
-    // console.log(this.props.user.dogs)
+    // console.log('UserContainer', this.props.user.dogs)
     return (
       <div>
       <Grid centered columns={3}>
@@ -45,9 +45,11 @@ class UserContainer extends Component {
 
 
 const mapStateToProps = (state) => {
-  console.log(state)
+  console.log('User', state)
+  console.log('Dogs', state.userState.currentUser.dogs)
   return {
-    user: state.userState.currentUser
+    user: state.userState.currentUser,
+    dogs: state.userState.currentUser.dogs
   }
 }
 

@@ -46,6 +46,7 @@ const userReducer = (state = initialState, action) => {
     }
 
     case 'AUTH_USER':
+    console.log('Inside Auth User', action)
     return {
       ...state,
       authenticating: false,

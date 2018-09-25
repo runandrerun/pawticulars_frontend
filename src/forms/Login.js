@@ -31,9 +31,8 @@ class Login extends Component {
   // }
 
   render() {
-    console.log('Login', this.props.authenticated)
     if (this.props.authenticated === false) {
-      return <Redirect to='/'/>
+      return <Redirect to='/profile'/>
     } else {
     return (
     <Container style={{paddingTop: 50}}>

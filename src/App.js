@@ -18,42 +18,16 @@ class App extends Component {
       console.log(this.props)
     }
   }
- //
- //  componentDidMount () {
- //   if (localStorage.getItem('token')) {
- //     const options = {
- //       headers : {
- //         'Content-Type': 'application/json',
- //         Accept: 'application/json',
- //         Authorization: localStorage.getItem('token')
- //       }
- //     }
- //     fetch('http://localhost:3000/api/v1/reauth', options)
- //     .then(resp => resp.json())
- //     .then(resp => {
- //       this.handleLoginUser(resp.user)
- //     })
- //   } else {
- //     this.setState((prevState) => {
- //        return {
- //          auth: {
- //            ...prevState.auth,
- //            authenticating: false
- //          }
- //        }
- //     })
- //   }
- // }
 
 
   render() {
-    console.log(this.props)
     const loggedIn = !!this.props.user.id
     console.log('loggedIn', loggedIn)
     return (
       <div>
         <Nav />
-        <Route exact path='/' render={() => <UserContainer />}/>
+        <Route exact path='/' render={() => <Login logged={loggedIn} />}/>
+        <Route exact path='/profile' render={() => <UserContainer logged={loggedIn} />}/>
         <Route exact path='/signup' render={() => <Signup />}/>
         <Route exact path='/dogparks' render={() => <UserContainer />}/>
         <Route exact path='/dogs' render={() => <UserContainer />}/>

@@ -8,6 +8,7 @@ const owner = (
   </a>
 )
 
+
 const DogCard = ({dog}) => (
   <Card
     image={require('./panda.jpg')}
