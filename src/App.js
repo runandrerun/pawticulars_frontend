@@ -6,7 +6,9 @@ import { connect } from 'react-redux';
 import Signup from './forms/Signup';
 import Login from './forms/Login';
 import Nav from './components/Nav';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
+import DogParkContainer from './containers/DogParkContainer';
+import DogContainer from './containers/DogContainer';
 
 class App extends Component {
 
@@ -25,13 +27,15 @@ class App extends Component {
     console.log('loggedIn', loggedIn)
     return (
       <div>
-        <Nav />
+        <Nav logged={loggedIn} user={this.props.user}/>
+        <Switch>
         <Route exact path='/' render={() => <Login logged={loggedIn} />}/>
         <Route exact path='/profile' render={() => <UserContainer logged={loggedIn} />}/>
         <Route exact path='/signup' render={() => <Signup />}/>
-        <Route exact path='/dogparks' render={() => <UserContainer />}/>
-        <Route exact path='/dogs' render={() => <UserContainer />}/>
+        <Route exact path='/dogparks' render={() => <DogParkContainer logged={loggedIn} />}/>
+        <Route exact path='/dogs' render={() => <DogContainer />}/>
         <Route exact path='/login' render={() => <Login loggedIn={loggedIn}/>}/>
+        </Switch>
       </div>
     );
   }
@@ -43,4 +47,4 @@ const mapStateToProps = (state) => {
     user: state.userState.currentUser
   }
 }
-export default connect(mapStateToProps, { loadUser, auth })(App);
+export default withRouter(connect(mapStateToProps, { loadUser, auth })(App));

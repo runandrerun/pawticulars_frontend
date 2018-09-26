@@ -4,8 +4,10 @@ import UserCard from './UserCard';
 import { Container, Header, Card, Divider, Grid, Rail, Segment } from 'semantic-ui-react'
 import DogCard from '../components/DogCard';
 import DetailDogCard from '../components/DetailDogCard';
+import DogParkCard from '../components/DogParkCard';
 
-class DogContainer extends Component {
+
+class DogParkContainer extends Component {
 
 
   userDogs = () => {
@@ -24,6 +26,7 @@ class DogContainer extends Component {
       <Segment padded='very'>
       <Header as='h2' textAlign="center">Dog Park!</Header>
       <Divider />
+      <DogParkCard />
 
 
           <Card.Group>
@@ -50,4 +53,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(DogContainer);
+export default connect(mapStateToProps)(DogParkContainer);

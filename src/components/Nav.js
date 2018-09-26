@@ -40,12 +40,27 @@ const styles = theme => ({
     display: 'flex',
     width: '100%',
   },
+  linkColors: {
+    color: 'white',
+  },
   appBar: {
     position: 'absolute',
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+  },
+  title: {
+    marginLeft: 40,
+    marginRight: 5,
+  },
+  rightSide: {
+    marginRight: 40,
+    marginLeft: 5,
+  },
+  navLinks: {
+    marginRight: 5,
+    marginLeft: 5,
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -141,6 +156,64 @@ class Nav extends React.Component {
     this.setState({ anchorEl: null });
   };
 
+  // navButtons = () => {
+  //   if (!!this.props.currentUser.id) {
+  //
+  //   return <Typography variant="button" color="inherit" className={classes.navLinks}>
+  //       Dogs
+  //     </Typography>
+  //     <Typography variant="button" color="inherit" className={classes.navLinks}>
+  //       Dog Parks
+  //     </Typography>
+  //     <Typography variant="button" color="inherit" className={classes.navLinks}>
+  //       <Link to='/profile'>@{this.props.user.username}</Link>
+  //     </Typography>
+  //     {auth && (
+  //       <div>
+  //         <IconButton
+  //           className={classes.rightSide}
+  //           aria-owns={open ? "menu-appbar" : null}
+  //           aria-haspopup="true"
+  //           onClick={this.handleMenu}
+  //           color="inherit"
+  //         >
+  //           <AccountCircle />
+  //         </IconButton>
+  //         <Menu
+  //           id="menu-appbar"
+  //           anchorEl={anchorEl}
+  //           anchorOrigin={{
+  //             vertical: "top",
+  //             horizontal: "right"
+  //           }}
+  //           transformOrigin={{
+  //             vertical: "top",
+  //             horizontal: "right"
+  //           }}
+  //           open={open}
+  //           onClose={this.handleClose}
+  //         >
+  //           <MenuItem onClick={this.handleClose}><Link to='/profile'>Profile</Link></MenuItem>
+  //
+  //           <MenuItem onClick={this.handleClose}><Link to='/login'>Logout</Link></MenuItem>
+  //         </Menu>
+  //       </div>
+  //     )}
+  //   } else {
+  //
+  //   return <div>
+  //     <Typography variant="button" color="inherit" className={classes.navLinks}>
+  //       Login
+  //     </Typography>
+  //     <Typography variant="button" color="inherit" className={classes.navLinks}>
+  //       <Link to='/profile'>Signup</Link>
+  //     </Typography>
+  //     </div>
+  //   }
+  // }
+
+
+
   render() {
     const { classes, theme } = this.props;
     const { anchor, openDrawer, auth, anchorEl } = this.state;
@@ -175,10 +248,10 @@ class Nav extends React.Component {
     } else {
       after = drawer;
     }
-    // console.log('Logout function', this.props.logout)
+    console.log('LoggedIn?', this.props.loggedIn)
     return (
       <div className={classes.root}>
-        <div className={classes.appFrame}>
+
           <AppBar
             style={{ backgroundColor: "#FFB6C1" }}
             className={classNames(classes.appBar, {
@@ -187,73 +260,63 @@ class Nav extends React.Component {
             })}
           >
             <Toolbar disableGutters={!openDrawer}>
-              <IconButton
-                color="inherit"
-                aria-label="Open drawer"
-                onClick={this.handleDrawerOpen}
-                className={classNames(classes.menuButton, openDrawer && classes.hide)}
-              >
-                <MenuIcon />
-              </IconButton>
+
               <img src={require('./footprint.svg')}
                 alt="Pawticulars"
-                className="footprint"
+                className={classes.title}
                 height={'20px'}
                 width={'20px'}/>
-              <Typography variant="title" color="inherit" noWrap style={{flex:1}}>
-                Pawticulars
+              <Typography variant="title" color="white" style={{flex:1}}>
+                <Link className={classes.linkColors} to='/'>Pawticulars</Link>
               </Typography>
 
-              {auth && (
-                <div>
-                  <IconButton
-                    aria-owns={open ? "menu-appbar" : null}
-                    aria-haspopup="true"
-                    onClick={this.handleMenu}
-                    color="inherit"
-                  >
-                    <AccountCircle />
-                  </IconButton>
-                  <Menu
-                    id="menu-appbar"
-                    anchorEl={anchorEl}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "right"
-                    }}
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "right"
-                    }}
-                    open={open}
-                    onClose={this.handleClose}
-                  >
-                    <MenuItem onClick={this.handleClose}><Link to='/profile'>Profile</Link></MenuItem>
-                    <MenuItem onClick={this.handleClose}><Link to='/login'>Login</Link></MenuItem>
-                  </Menu>
-                </div>
-              )}
-              <FormGroup>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={auth}
-                      onChange={this.handleChange}
-                      aria-label="LoginSwitch"
-                    />
-                  }
-                  label={this.props.authenticated === false ? 'Logged In' : 'Logged Out'}
-                />
-              </FormGroup>
+              <Typography variant="button" color="inherit" className={classes.navLinks}>
+                  Dogs
+                </Typography>
+                <Typography variant="button" color="inherit" className={classes.navLinks}>
+                  Dog Parks
+                </Typography>
+                <Typography variant="button" color="inherit" className={classes.navLinks}>
+                  <Link className={classes.linkColors} to='/profile'>@{this.props.user.username}</Link>
+                </Typography>
+                {auth && (
+                  <div>
+                    <IconButton
+                      className={classes.rightSide}
+                      aria-owns={open ? "menu-appbar" : null}
+                      aria-haspopup="true"
+                      onClick={this.handleMenu}
+                      color="inherit"
+                    >
+                      <AccountCircle />
+                    </IconButton>
+                    <Menu
+                      id="menu-appbar"
+                      anchorEl={anchorEl}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "right"
+                      }}
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "right"
+                      }}
+                      open={open}
+                      onClose={this.handleClose}
+                    >
+                      <MenuItem onClick={this.handleClose}><Link to='/profile'>Profile</Link></MenuItem>
 
-
+                      <MenuItem onClick={this.handleClose}><Link to='/login'>Logout</Link></MenuItem>
+                    </Menu>
+                  </div>
+                )}
 
             </Toolbar>
           </AppBar>
           {before}
 
           {after}
-        </div>
+
       </div>
     );
   }
@@ -266,7 +329,8 @@ Nav.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    authenticated: state.userState.authenticating
+    authenticated: state.userState.authenticating,
+    user: state.userState.currentUser
   }
 }
 
@@ -280,3 +344,25 @@ export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, 
 // >
 //   <div className={classes.drawerHeader} />
 // </main>
+//
+// <FormGroup>
+//   <FormControlLabel
+//     control={
+//       <Switch
+//         checked={auth}
+//         onChange={this.handleChange}
+//         aria-label="LoginSwitch"
+//       />
+//     }
+//     label={this.props.authenticated === false ? 'Logged In' : 'Logged Out'}
+//   />
+// </FormGroup>
+
+// <IconButton
+//   color="inherit"
+//   aria-label="Open drawer"
+//   onClick={this.handleDrawerOpen}
+//   className={classNames(classes.menuButton, openDrawer && classes.hide)}
+// >
+//   <MenuIcon />
+// </IconButton>
