@@ -40,15 +40,19 @@ const styles = theme => ({
     display: 'flex',
     width: '100%',
   },
-  linkColors: {
-    color: 'white',
-  },
   appBar: {
     position: 'absolute',
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+  },
+  linkColors: {
+    color: 'white',
+    '&:hover': {
+      color: 'white',
+      opacity: 1,
+    }
   },
   title: {
     marginLeft: 40,
@@ -271,10 +275,10 @@ class Nav extends React.Component {
               </Typography>
 
               <Typography variant="button" color="inherit" className={classes.navLinks}>
-                  Dogs
+                  <Link className={classes.linkColors} to='/dogs'>Dogs</Link>
                 </Typography>
                 <Typography variant="button" color="inherit" className={classes.navLinks}>
-                  Dog Parks
+                  <Link className={classes.linkColors} to='/dogparks'>Dog Parks</Link>
                 </Typography>
                 <Typography variant="button" color="inherit" className={classes.navLinks}>
                   <Link className={classes.linkColors} to='/profile'>@{this.props.user.username}</Link>

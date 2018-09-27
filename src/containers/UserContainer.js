@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import UserCard from './UserCard';
 import { Container, Header, Card, Divider, Grid, Rail, Segment } from 'semantic-ui-react'
 import DogCard from '../components/DogCard';
+import DetailDogCard from '../components/DetailDogCard';
 
 class UserContainer extends Component {
 
 
   userDogs = () => {
     return this.props.user.dogs.map(dog => {
-      return <DogCard dog={dog} key={dog.name}/>
+      return <DetailDogCard dog={dog} key={dog.name} owner={this.props.user}/>
     })
   }
 

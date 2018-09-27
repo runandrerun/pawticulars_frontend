@@ -1,6 +1,6 @@
 import { fetchDog, fetchDogs, fetchUpdateDog, createDog } from '../adapters/dogsAdapter';
 import { fetchUser, fetchUsers, fetchUpdateUser, createUser, loginUser, reAuth } from '../adapters/usersAdapter'
-
+import { fetchDogParks, fetchDogPark } from '../adapters/dogParksAdapter';
 export const selectUser = (user) => {
   return {
     type: 'SELECT_USER',
@@ -62,7 +62,50 @@ export const auth = (token) => {
   }
 }
 
+export const selectedDogPark = (dogPark) => {
+  return {
+    type: 'SELECT_DOG_PARK',
+    payload: {dogPark}
+  }
+}
+
+export const loadDogParks = () => {
+  return (dispatch) => {
+    fetchDogParks()
+      .then(dogParks => {
+        dispatch(setDogParks(dogParks))
+      })
+  }
+}
+
+export const loadDogPark = (dogPark) => {
+  return (dispatch) => {
+    fetchDogPark(dogPark)
+      .then(dogParkRes => {
+        dispatch(setDogPark(dogParkRes))
+      })
+  }
+}
+
 ////////
+
+const setDogParks = (dogParks) => {
+  return {
+    type: 'LOAD_DOG_PARKS',
+    payload: {
+      dogParks
+    }
+  }
+}
+
+const setDogPark = (dogPark) => {
+  return {
+    type: 'SELECT_DOG_PARK',
+    payload: {
+      dogPark
+    }
+  }
+}
 
 const authenticateUser = (user) => {
   return {

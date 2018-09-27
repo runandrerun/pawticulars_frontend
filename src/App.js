@@ -10,6 +10,7 @@ import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 import DogParkContainer from './containers/DogParkContainer';
 import DogContainer from './containers/DogContainer';
 
+
 class App extends Component {
 
   componentDidMount() {
@@ -44,7 +45,8 @@ class App extends Component {
 const mapStateToProps = (state) => {
   console.log(state)
   return {
-    user: state.userState.currentUser
+    user: state.userState.currentUser,
+    dogParks: state.dogParkState.dogParks
   }
 }
 export default withRouter(connect(mapStateToProps, { loadUser, auth })(App));

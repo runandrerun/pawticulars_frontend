@@ -5,6 +5,7 @@ import { Container, Header, Card, Divider, Grid, Rail, Segment } from 'semantic-
 import DogCard from '../components/DogCard';
 import DetailDogCard from '../components/DetailDogCard';
 import DogParkCard from '../components/DogParkCard';
+import { loadDogParks } from '../actions';
 
 
 class DogParkContainer extends Component {
@@ -14,6 +15,11 @@ class DogParkContainer extends Component {
     return this.props.user.dogs.map(dog => {
       return <DetailDogCard dog={dog} owner={this.props.user} key={dog.name}/>
     })
+  }
+
+  componentDidMount() {
+    this.props.loadDogParks()
+    console.log(this.props.dogParks)
   }
 
 
@@ -49,8 +55,9 @@ class DogParkContainer extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.userState.currentUser,
-    dogs: state.userState.currentUser.dogs
+    dogs: state.userState.currentUser.dogs,
+    dogParks : state.dogParkState.dogParks
   }
 }
 
-export default connect(mapStateToProps)(DogParkContainer);
+export default connect(mapStateToProps, { loadDogParks })(DogParkContainer);
