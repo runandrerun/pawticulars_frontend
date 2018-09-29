@@ -9,6 +9,8 @@ import Nav from './components/Nav';
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 import DogParkContainer from './containers/DogParkContainer';
 import DogContainer from './containers/DogContainer';
+import AllDogParks from './containers/AllDogParks';
+import NewDog from './forms/NewDog';
 
 
 class App extends Component {
@@ -34,8 +36,9 @@ class App extends Component {
         <Route exact path='/profile' render={() => <UserContainer logged={loggedIn} />}/>
         <Route exact path='/signup' render={() => <Signup />}/>
         <Route exact path='/dogparks' render={() => <DogParkContainer logged={loggedIn} />}/>
-        <Route exact path='/dogs' render={() => <DogContainer />}/>
+        <Route exact path='/dogs' render={() => <DogContainer logged={loggedIn} />}/>
         <Route exact path='/login' render={() => <Login loggedIn={loggedIn}/>}/>
+        <Route exact path='/newdog' render={() => <NewDog loggedIn={loggedIn}/>}/>
         </Switch>
       </div>
     );

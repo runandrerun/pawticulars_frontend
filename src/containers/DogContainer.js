@@ -4,6 +4,9 @@ import UserCard from './UserCard';
 import { Container, Header, Card, Divider, Grid, Rail, Segment } from 'semantic-ui-react'
 import DogCard from '../components/DogCard';
 import DetailDogCard from '../components/DetailDogCard';
+import DogParkCard from '../components/DogParkCard';
+import { loadDogParks } from '../actions';
+import AllDogParks from './AllDogParks';
 
 class DogContainer extends Component {
 
@@ -14,6 +17,13 @@ class DogContainer extends Component {
     })
   }
 
+  componentDidMount() {
+    console.log('Before Fetch', this.props.dogs)
+  }
+
+  allParks = () => {
+  return <AllDogParks dogs={this.props.dogParks} />
+  }
 
   render() {
     // console.log('UserContainer', this.props.user.dogs)
@@ -24,6 +34,7 @@ class DogContainer extends Component {
       <Segment padded='very'>
       <Header as='h2' textAlign="center">Dog Park!</Header>
       <Divider />
+      <DogParkCard doggyPark={this.props.doggyPark} />
 
 
           <Card.Group>
@@ -34,20 +45,21 @@ class DogContainer extends Component {
           </Card.Group>
           </Segment>
           </Grid.Column>
+
           </Grid>
-
-
       </div>
     )
   }
 }
 
+// {this.props.dogParks.length > 0 ? this.allParks() : null}
 
 const mapStateToProps = (state) => {
   return {
     user: state.userState.currentUser,
-    dogs: state.userState.currentUser.dogs
+    dogs: state.userState.currentUser.dogs,
+    doggyPark: state.userState.currentUser.dog_parks
   }
 }
 
-export default connect(mapStateToProps)(DogContainer);
+export default connect(mapStateToProps, { loadDogParks })(DogContainer);

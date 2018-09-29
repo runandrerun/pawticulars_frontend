@@ -68,6 +68,7 @@ class DetailDogCard extends React.Component {
     this.setState(state => ({ expanded: !state.expanded }));
   };
 
+
   render() {
     const { classes } = this.props;
     console.log(this.props.dog)

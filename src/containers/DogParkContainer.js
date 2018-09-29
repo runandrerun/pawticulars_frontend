@@ -6,7 +6,8 @@ import DogCard from '../components/DogCard';
 import DetailDogCard from '../components/DetailDogCard';
 import DogParkCard from '../components/DogParkCard';
 import { loadDogParks } from '../actions';
-
+import AllDogParks from './AllDogParks';
+import SimpleDogParkCard from '../components/SimpleDogParkCard';
 
 class DogParkContainer extends Component {
 
@@ -22,41 +23,42 @@ class DogParkContainer extends Component {
     console.log(this.props.dogParks)
   }
 
+  allParks = () => {
+  return <AllDogParks dogs={this.props.dogParks} />
+  }
 
+  allDogParks = () => {
+    return this.props.dogParks.map(dogPark => {
+      return <SimpleDogParkCard dogPark={dogPark} />
+    })
+  }
+
+  // {this.props.dogParks.length > 0 ? this.allParks() : null}
   render() {
     // console.log('UserContainer', this.props.user.dogs)
     return (
+      <Container>
       <div>
       <Grid centered columns={3}>
-      <Grid.Column>
-      <Segment padded='very'>
-      <Header as='h2' textAlign="center">Dog Park!</Header>
-      <Divider />
-      <DogParkCard />
 
 
-          <Card.Group>
+      {this.props.dogParks.length > 0 ? this.allDogParks() : null}
 
-                <Rail close='very' position='left'>
-                {this.props.user.dogs ? this.userDogs() : null}
-                </Rail>
-          </Card.Group>
-          </Segment>
-          </Grid.Column>
+
           </Grid>
-
-
       </div>
+      </Container>
     )
   }
 }
+
 
 
 const mapStateToProps = (state) => {
   return {
     user: state.userState.currentUser,
     dogs: state.userState.currentUser.dogs,
-    dogParks : state.dogParkState.dogParks
+    dogParks: state.dogParkState.dogParks
   }
 }
 

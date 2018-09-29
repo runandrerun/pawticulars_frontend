@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Formik } from 'formik';
+import { Formik, Field } from 'formik';
 import moment from 'moment';
 import { Header, Container, Segment } from 'semantic-ui-react';
+import { newUser } from '../actions';
+import { connect } from 'react-redux';
 
 import {
   Button,
@@ -13,15 +15,18 @@ import {
 } from 'formik-semantic-ui';
 // import { DatePicker, FileUpload } from '../custom/index';
 
-class ExampleForm extends Component {
+class SignupForm extends Component {
   _handleSubmit = (values, formikApi) => {
     console.log(values);
+    this.props.newUser(values)
     setTimeout(() => {
       Object.keys(values).forEach(key => {
-        formikApi.setFieldError(key, 'Some Error');
+        formikApi.setFieldError(key, `Invalid ${key}`);
       });
       formikApi.setSubmitting(false);
     }, 1000);
+  // console.log(values)
+  //   debugger;
   };
 
   render() {
@@ -33,22 +38,19 @@ class ExampleForm extends Component {
     <Segment attached>
       <Form
         initialValues={{
-          emailAddress: '',
+          email: '',
           username: '',
           password: '',
-          gender: '',
           bio: '',
-          fileUrl: '',
-          dob: ''
         }}
         onSubmit={this._handleSubmit}
         render={({ handleReset }) => (
           <Form.Children>
-            <Input label="Email" name="emailAddress" />
+            <Input label="Email" name="email" />
 
             <Form.Group widths="2">
               <Input label="Username" name="username" />
-              <Form.Input type='password' label="Password" name="password" />
+              <Input type='password' label="Password" name="password" />
             </Form.Group>
 
               <TextArea label="Bio" name="bio" />
@@ -65,4 +67,4 @@ class ExampleForm extends Component {
   }
 }
 
-export default ExampleForm;
+export default connect(null, { newUser })(SignupForm);

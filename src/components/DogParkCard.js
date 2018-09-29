@@ -63,7 +63,7 @@ class DogParkCard extends React.Component {
   render() {
     const { classes } = this.props;
     const { value } = this.state;
-
+    console.log(this.props.doggyPark)
     return (
       <div className={classes.root}>
         <Tabs

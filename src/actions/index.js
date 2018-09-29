@@ -45,6 +45,17 @@ export const logUser = (userData) => {
   }
 }
 
+export const newUser = (userData) => {
+  return (dispatch) => {
+    createUser(userData)
+    .then(userRes => {
+      console.log('Inside newUser', userRes)
+
+      localStorage.setItem('token', userRes.jwt)
+    })
+  }
+}
+
 export const logout = () => {
   localStorage.clear()
   return (dispatch) => {
@@ -146,6 +157,15 @@ const setUser = (user) => {
 const currentUser = (user) => {
   return {
     type: 'LOGIN_USER',
+    payload: {
+      user
+    }
+  }
+}
+
+const registerUser = (user) => {
+  return {
+    type: 'REGISTER_USER',
     payload: {
       user
     }

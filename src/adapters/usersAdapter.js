@@ -26,6 +26,7 @@ export const fetchUser = (user) => {
 
 export const createUser = (user) => {
   const url = `http://localhost:3000/users`
+  console.log('User Adapter', user)
   const options = {
     method: 'POST',
     mode: 'cors',
@@ -50,7 +51,16 @@ export const loginUser = (userData) => {
     }
   })
   .then(res => res.json())
+  .then(user => {
+    localStorage.setItem('token', user.jwt)
+  })
 }
+
+// export const redirectRegistered = (userData) => {
+//   return fetch(`http://localhost:3000/login`, {
+//     method: 'POST',
+//   })
+// }
 
 export const reAuth = (token) => {
   const options = {
