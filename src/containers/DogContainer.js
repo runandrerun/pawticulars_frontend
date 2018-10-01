@@ -11,9 +11,13 @@ import AllDogParks from './AllDogParks';
 class DogContainer extends Component {
 
 
+  state = {
+    dogParkName: "Your Pup's Dog Park!"
+  }
   userDogs = () => {
     return this.props.user.dogs.map(dog => {
-      return <DetailDogCard dog={dog} owner={this.props.user} key={dog.name}/>
+      return <DetailDogCard dog={dog} owner={this.props.user} key={dog.name}
+      fetchDogParkName={this.fetchDogParkName}/>
     })
   }
 
@@ -25,6 +29,13 @@ class DogContainer extends Component {
   return <AllDogParks dogs={this.props.dogParks} />
   }
 
+  fetchDogParkName = (value) => {
+    this.setState({
+      dogParkName: value
+    })
+
+  }
+
   render() {
     // console.log('UserContainer', this.props.user.dogs)
     return (
@@ -32,9 +43,9 @@ class DogContainer extends Component {
       <Grid centered columns={3}>
       <Grid.Column>
       <Segment padded='very'>
-      <Header as='h2' textAlign="center">Dog Park!</Header>
+      <Header as='h2' textAlign="center">{this.state.dogParkName}</Header>
       <Divider />
-      <DogParkCard doggyPark={this.props.doggyPark} />
+      <DogParkCard fetchDogParkName={this.fetchDogParkName} doggyPark={this.props.doggyPark} />
 
 
           <Card.Group>
