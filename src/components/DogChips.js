@@ -25,10 +25,10 @@ function DogChips(props) {
   return (
 
       <Chip
-              avatar={<Avatar>Hi</Avatar>}
-              label='Hi'
+              avatar={<Avatar>{props.dog.name[0]}</Avatar>}
+              label={props.dog.name}
               className={classes.chip}
-              color='primary'
+              color={props.dog.gender === 'Male' ? 'primary' : 'secondary'}
             />
     )
   }
