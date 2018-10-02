@@ -1,0 +1,36 @@
+/* @font-face {
+    font-family: script;
+    src: url('../fonts/script.ttf');
+} */
+@font-face {
+  font-family: 'Satisfy', cursive;
+  src: url('https://fonts.googleapis.com/css?family=Satisfy');
+}
+.splash-info {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.pawticulars-title {
+  text-align: center;
+  font-family: 'Satisfy', cursive;
+}
+
+.pawticulars-title h1 {
+  font-family: script;
+  color: #FFADB9;
+  font-size: 90px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+/* flex-direction: column; */
+}
+
+.button-text {
+  text-align: center;
+  margin: 5px;
+}

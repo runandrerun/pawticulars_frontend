@@ -11,6 +11,7 @@ import DogParkContainer from './containers/DogParkContainer';
 import DogContainer from './containers/DogContainer';
 import AllDogParks from './containers/AllDogParks';
 import NewDog from './forms/NewDog';
+import Welcome from './components/Welcome';
 
 
 class App extends Component {
@@ -32,7 +33,7 @@ class App extends Component {
       <div>
         <Nav logged={loggedIn} user={this.props.user}/>
         <Switch>
-        <Route exact path='/' render={() => <Login logged={loggedIn} />}/>
+        <Route exact path='/' render={() => <Welcome logged={loggedIn} />}/>
         <Route exact path='/profile' render={() => <UserContainer logged={loggedIn} />}/>
         <Route exact path='/signup' render={() => <Signup />}/>
         <Route exact path='/dogparks' render={() => <DogParkContainer logged={loggedIn} />}/>
