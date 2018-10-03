@@ -15,12 +15,28 @@ import Login from '../forms/Login';
 import Signup from '../forms/Signup';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { render } from 'react-dom';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
+// import TextField from '@material-ui/core/TextField';
+import { Formik, Field, Form } from 'formik';
+import LoginStyling from '../custom/LoginStyling.css';
+import { logUser } from '../actions';
+import { TextField } from 'formik-material-ui';
+import { LinearProgress } from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
 
 
 
 class Welcome extends Component {
 
   state = {
+    user: {
+      username: '',
+      password: '',
+    },
     loginOpen: false,
     signupOpen: false,
     token: '',
@@ -30,37 +46,56 @@ class Welcome extends Component {
     this.setState({ loginOpen: true })
   };
 
-  handleLoginClose = () => {
-    this.setState({ loginOpen: false }, this.redirectToProfile)
+  handleLoginClose = (e, values, formikApi) => {
+    e.preventDefault()
+    // this._handleSubmit(values, formikApi)
+    // console.log('inside handle close', values)
+    this.setState({ loginOpen: false }, () => this._handleSubmit(values, formikApi))
   };
 
   handleSignupOpen = () => {
     this.setState({ signupOpen: true })
   };
 
+  handleCancel = () => {
+    this.setState({ signupOpen: false })
+  };
+
   handleSignupClose = () => {
     this.setState({ signupOpen: false })
   };
 
-  redirectToProfile = () => {
-    return <Redirect to='/profile'/>
-  }
-
-  // componentDidMount() {
-  //   localStorage.getItem('token') ? <Redirect to='/profile'/> : <Redirect to='/'/>
+  // redirectToProfile = (values, formikApi) => {
+  //   this._handleSubmit(values, formikApi)
+  //   return <Redirect to='/profile'/>
   // }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState) {
-  //
-  //   }
-  // }
+  _handleSubmit = (values, formikApi) => {
+    // e.preventDefault()
+    // console.log('inside submit', e)
+    // console.log('inside values', values)
+    // console.log('inside values', formikApi)
+    this.props.logUser(values)
+    .then(this.returnRedirect)
+
+  };
+
+    returnRedirect = (userRes) => {
+      console.log('return redirect', userRes.user)
+      if (userRes) {
+        return this.props.history.push({pathname: '/profile'})
+      } else {
+        return null
+      }
+    }
+
 
   render() {
+
     if (localStorage.getItem('token')) {
       return <Redirect to='/profile'/>
     } else {
-    return (
+      return (
 
   <Provider>
     <Hero
@@ -83,11 +118,46 @@ class Welcome extends Component {
       aria-labelledby='login'
       aria-describedby='alert-dialog-description'
       >
+      <DialogTitle id="simple-dialog-title">Login</DialogTitle>
+
+
       <DialogContent>
-        <DialogContentText id='alert-dialog-description'>
-          <Login />
-        </DialogContentText>
+      <Formik
+      initialValues={{username: '', password: ''}}
+      onSubmit={(values, {setSubmitting}) => {
+      setTimeout(() => {
+        setSubmitting(false);
+      }, 500);
+      this._handleSubmit(values)
+      }}
+      render={({submitForm, isSubmitting, values}) => (
+      <Form>
+        <Field type="username" label="Username" name="username" component={TextField} fullWidth />
+        <br />
+        <Field
+          fullWidth
+          type="password"
+          label="Password"
+          name="password"
+          component={TextField}
+        />
+        <br />
+        {isSubmitting && <LinearProgress />}
+        <br />
+        <Button
+          variant="raised"
+          color="primary"
+          disabled={isSubmitting}
+          onClick={submitForm}
+        >
+          Submit
+        </Button>
+      </Form>
+      )}
+      />
       </DialogContent>
+
+
         </Dialog>
       </div>
 
@@ -113,8 +183,185 @@ class Welcome extends Component {
 }
 
 
-export default Welcome;
 
+export default withRouter(connect(null, { logUser })(Welcome));
+
+  // alert(JSON.stringify(values, null, 2));
+
+
+// VALIDATION
+// validate={values => {
+// const errors: Partial<Values> = {};
+// if (!values.username) {
+//   errors.username = 'Required';
+// } else if (
+//   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.username)
+// ) {
+//   errors.username = 'Invalid Username';
+// }
+// return errors;
+// }}
+
+
+
+// <DialogContent>
+// <Formik
+// initialValues={{username: '', password: ''}}
+// validate={values => {
+// const errors: Partial<Values> = {};
+// if (!values.email) {
+//   errors.email = 'Required';
+// } else if (
+//   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+// ) {
+//   errors.email = 'Invalid Username';
+// }
+// return errors;
+// }}
+// onSubmit={(values, {setSubmitting}) => {
+// setTimeout(() => {
+//   setSubmitting(false);
+//   alert(JSON.stringify(values, null, 2));
+// }, 500);
+// }}
+// render={({submitForm, isSubmitting, values}) => (
+// <Form onSubmit={this._handleSubmit}>
+//   <Field type="username" label="Username" name="username" component={TextField} fullWidth />
+//   <br />
+//   <Field
+//     fullWidth
+//     type="password"
+//     label="Password"
+//     name="password"
+//     component={TextField}
+//   />
+//   <br />
+//   {isSubmitting && <LinearProgress />}
+//   <br />
+//   <Button
+//     variant="raised"
+//     color="primary"
+//     disabled={isSubmitting}
+//     onClick={submitForm}
+//   >
+//     Submit
+//   </Button>
+// </Form>
+// )}
+// />
+// </DialogContent>
+
+
+// <form onSubmit={this._handleSubmit}>
+// <DialogContent>
+// <TextField
+//         autoFocus
+//         margin="dense"
+//         id="username"
+//         label="Username"
+//         type="Username"
+//         fullWidth
+//       />
+//
+//       <TextField
+//               autoFocus
+//               margin="dense"
+//               id="password"
+//               label="Password"
+//               type="Password"
+//               fullWidth
+//             />
+// </DialogContent>
+//             <DialogActions>
+//                   <Button type="submit" color="primary">
+//                     Login
+//                   </Button>
+//                   <Button onClick={this.handleCancel} color="secondary" autoFocus>
+//                     Cancel
+//                   </Button>
+//                 </DialogActions>
+//             </form>
+
+
+
+// <Form onSubmit={this.handleLoginClose}>
+// <DialogContent>
+// <TextField
+//         autoFocus
+//         margin="dense"
+//         id="username"
+//         label="Username"
+//         type="Username"
+//         fullWidth
+//       />
+//
+//       <TextField
+//               autoFocus
+//               margin="dense"
+//               id="password"
+//               label="Password"
+//               type="Password"
+//               fullWidth
+//             />
+// </DialogContent>
+//             <DialogActions>
+//                   <Button type="submit" color="primary">
+//                     Login
+//                   </Button>
+//                   <Button onClick={this.handleCancel} color="secondary" autoFocus>
+//                     Cancel
+//                   </Button>
+//                 </DialogActions>
+//             </Form>
+
+// <TextField
+// id="login"
+// label="Login"
+// type="login"
+// className='login-space'
+// margin="dense"
+// variant="outlined"
+// fullWidth
+// />
+//
+// <TextField
+// id="password"
+// label="Password"
+// type="password"
+// className='login-space'
+// margin="dense"
+// variant="outlined"
+// fullWidth
+// />
+// <DialogContentText id='alert-dialog-description'>
+// <form>
+// <TextField
+// id="login"
+// label="Login"
+// type="login"
+// className={style.textField}
+// margin="normal"
+// variant="outlined"
+// />
+// <TextField
+// id="password"
+// label="Password"
+// type="password"
+// className={style.textField}
+// margin="normal"
+// variant="outlined"
+// />
+// </form>
+//
+// </DialogContentText>
+// <DialogActions>
+//       <Button onClick={this.handleLoginClose} color="primary">
+//         Login
+//       </Button>
+//       <Button onClick={this.handleLoginClose} color="secondary" autoFocus>
+//         Cancel
+//       </Button>
+//     </DialogActions>
 // <DialogActions>
 //       <Button onClick={this.handleLoginClose} color="primary">
 //         Login

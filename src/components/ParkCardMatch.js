@@ -29,8 +29,8 @@ const styles = {
 function ParkCardMatch(props) {
 
 
-  console.log('Simple', props.dogPark)
-  console.log('Simple2', props.dogPark[0].id)
+  // console.log('Simple', props.dogPark)
+  // console.log('Simple2', props.dogPark[0].id)
   const { classes } = props;
   return (
   <Container textAlign='center'>

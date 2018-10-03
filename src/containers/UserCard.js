@@ -31,7 +31,7 @@ import { Card, Icon, Image } from 'semantic-ui-react'
 
 const UserCard = ({user}) => (
   <Card>
-    <Image src={require('./andre.jpg')} />
+    <Image src={user.avatar} />
     <Card.Content>
       <Card.Header>{user.username}</Card.Header>
       <Card.Meta>
@@ -43,6 +43,11 @@ const UserCard = ({user}) => (
       <a>
         <Icon name='heart' color='red'/>
         {user.dogs.length} {user.dogs.length === 1 ? 'Dog' : 'Dogs'}
+      </a>
+      '|'
+      <a>
+        <Icon name='user' color='blue'/>
+        {user.all_friends.length} {user.all_friends.length === 1 ? 'Friend' : 'Friends'}
       </a>
     </Card.Content>
   </Card>
