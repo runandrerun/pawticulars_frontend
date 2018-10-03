@@ -4,6 +4,11 @@ import UserCard from './UserCard';
 import { Container, Header, Card, Divider, Grid, Rail, Segment } from 'semantic-ui-react'
 import DogCard from '../components/DogCard';
 import DetailDogCard from '../components/DetailDogCard';
+import Nav from '../components/Nav';
+import UserActivity from './UserActivity';
+import { Feed, Icon } from 'semantic-ui-react';
+import withAuth from '../hocs/withAuth';
+
 
 class UserContainer extends Component {
 
@@ -14,16 +19,31 @@ class UserContainer extends Component {
     })
   }
 
+  userFeed = () => {
+    return this.props.user.messages.map(msg => {
+      // console.log('MSG MAP', msg)
+      // console.log('MSG MAP 2nd', msg.user)
+      return <UserActivity key={msg.id} msg={msg}/>
+    })
+  }
+
+
 
   render() {
-    // console.log('UserContainer', this.props.user.dogs)
+    console.log('UserContainer', this.props.user.messages)
+    if (localStorage.getItem('token')) {
     return (
+
       <div>
       <Grid centered columns={3}>
       <Grid.Column>
-      <Segment padded='very' color='red'>
-      <Header as='h2' textAlign="center">Welcome {this.props.user.display_name}!</Header>
+      <Segment padded='very'>
+      <Header as='h2' textAlign="center">Welcome {this.props.user.username}!</Header>
       <Divider />
+      <Feed>
+        {this.props.user.messages ? this.userFeed() : null}
+      </Feed>
+
 
 
           <Card.Group>
@@ -41,9 +61,13 @@ class UserContainer extends Component {
 
       </div>
     )
-  }
+  } else {
+  return (<div>
+          Loading
+            </div>)
+          }
+        }
 }
-
 
 const mapStateToProps = (state) => {
   console.log('User', state)
@@ -54,4 +78,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(UserContainer);
+export default withAuth(connect(mapStateToProps)(UserContainer));

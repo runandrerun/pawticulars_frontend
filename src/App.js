@@ -15,32 +15,58 @@ import Welcome from './components/Welcome';
 
 
 class App extends Component {
-
+  state = {
+    active: false,
+  }
   componentDidMount() {
     if (localStorage.getItem('token')) {
       const token = localStorage.getItem('token')
       this.props.auth(token)
     } else {
-      console.log(this.props)
+      return null
     }
   }
 
 
+  // verifyUser = () => {
+  //   if (localStorage.getItem('token')) {
+  //     const token = localStorage.getItem('token')
+  //     this.props.auth(token)
+  //   } else {
+  //     return null
+  //   }
+  // }
+  setLoggedIn = () => {
+    if (this.props.user) {
+      return !!this.props.user.id
+    } else {
+      return null
+    }
+  }
+
+  // const loggedIn = !!this.props.user.id
+
   render() {
-    const loggedIn = !!this.props.user.id
-    console.log('loggedIn', loggedIn)
+    console.log('INSIDE APP', this.props.user)
+
+    const loggedIn = this.setLoggedIn()
+    // console.log('loggedIn', loggedIn)
+    console.log('CHECKING ROUTE', loggedIn)
     return (
+
       <div>
-        <Nav logged={loggedIn} user={this.props.user}/>
-        <Switch>
-        <Route exact path='/' render={() => <Welcome logged={loggedIn} />}/>
-        <Route exact path='/profile' render={() => <UserContainer logged={loggedIn} />}/>
+        {this.props.location.pathname === '/' ? null : <Nav logged={loggedIn} user={this.props.user}/>}
+
+        {this.props.user ? <Switch><Route exact path='/' render={() => <Welcome logged={loggedIn} />}/>
+        <Route exact path='/profile' render={() => <UserContainer loggedIn={loggedIn} />}/>
         <Route exact path='/signup' render={() => <Signup />}/>
-        <Route exact path='/dogparks' render={() => <DogParkContainer logged={loggedIn} />}/>
-        <Route exact path='/dogs' render={() => <DogContainer logged={loggedIn} />}/>
+        <Route exact path='/dogparks' render={() => <DogParkContainer loggedIn={loggedIn} />}/>
+        <Route exact path='/dogs' render={() => <DogContainer loggedIn={loggedIn} />}/>
         <Route exact path='/login' render={() => <Login loggedIn={loggedIn}/>}/>
         <Route exact path='/newdog' render={() => <NewDog loggedIn={loggedIn}/>}/>
-        </Switch>
+        </Switch>: null}
+
+
       </div>
     );
   }

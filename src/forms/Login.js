@@ -4,6 +4,7 @@ import { Header, Container, Segment } from 'semantic-ui-react';
 import { logUser } from '../actions';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
   state = {
@@ -19,16 +20,19 @@ class Login extends Component {
     // console.log('formikApi', formikApi)
     // Handle response / Errors
     this.props.logUser(values)
-    // formikApi.setFieldError('emailAddress', 'Invalid Email');
+    .then(this.returnRedirect)
+    // formikApi.setFieldError('username', 'Invalid!');
     // formikApi.setSubmitting(false);
   };
 
-  // handleChange = (e) => {
-  //   console.log(e.target.value)
-  //   this.setState({
-  //     [e.target.name]: e.target.value
-  //   })
-  // }
+  returnRedirect = (userRes) => {
+    if (userRes) {
+      return this.props.history.push({pathname: '/profile'})
+    } else {
+      return null
+    }
+  }
+
 
   render() {
     if (this.props.authenticated === false) {
@@ -60,10 +64,9 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     authenticated: state.userState.authenticating
   }
 }
 
-export default connect(mapStateToProps, { logUser })(Login);
+export default withRouter(connect(mapStateToProps, { logUser })(Login));

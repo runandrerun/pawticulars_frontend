@@ -32,6 +32,7 @@ const userReducer = (state = initialState, action) => {
     }
 
     case 'LOGIN_USER':
+    console.log('INSIDE REDUCER', action.payload)
     return {
       ...state,
       authenticating: false,
@@ -39,11 +40,12 @@ const userReducer = (state = initialState, action) => {
     }
 
     case 'LOGOUT_USER':
-    return {
-      ...state,
-      authenicating: true,
-      currentUser: action.payload.user
-    }
+    return initialState
+    // return {
+    //   ...state,
+    //   authenicating: true,
+    //   currentUser: action.payload.user
+    // }
 
     case 'AUTH_USER':
     console.log('Inside Auth User', action)

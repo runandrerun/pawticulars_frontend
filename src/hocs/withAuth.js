@@ -9,7 +9,7 @@ const withAuth = (WrappedComponent) => {
       } else if (localStorage.getItem('token')) {
         return <div className='container'> Loading </div>
       } else {
-      return  <Redirect to='login' />
+      return  <Redirect to='/' />
     }
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Feed, Icon } from 'semantic-ui-react';
 import MessageCard from '../components/MessageCard';
+import withAuth from '../hocs/withAuth';
 
 class CommunityContainer extends Component{
 

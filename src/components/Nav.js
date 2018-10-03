@@ -160,6 +160,11 @@ class Nav extends React.Component {
     this.setState({ anchorEl: null });
   };
 
+  handleLogout = (e) => {
+    this.setState({ anchorEl: null });
+    this.props.logout()
+  }
+
   // navButtons = () => {
   //   if (!!this.props.currentUser.id) {
   //
@@ -216,6 +221,9 @@ class Nav extends React.Component {
   //   }
   // }
 
+  showUser = () => {
+    return `@${this.props.user.username}`
+  }
 
 
   render() {
@@ -281,7 +289,7 @@ class Nav extends React.Component {
                   <Link className={classes.linkColors} to='/dogparks'>Dog Parks</Link>
                 </Typography>
                 <Typography variant="button" color="inherit" className={classes.navLinks}>
-                  <Link className={classes.linkColors} to='/profile'>@{this.props.user.username}</Link>
+                  <Link className={classes.linkColors} to='/profile'>{this.props.user ? this.showUser() : null}</Link>
                 </Typography>
                 {auth && (
                   <div>
@@ -310,7 +318,7 @@ class Nav extends React.Component {
                     >
                       <MenuItem onClick={this.handleClose}><Link to='/profile'>Profile</Link></MenuItem>
 
-                      <MenuItem onClick={this.handleClose}><Link to='/login'>Logout</Link></MenuItem>
+                      <MenuItem onClick={this.handleLogout}><Link to='/'>Logout</Link></MenuItem>
                     </Menu>
                   </div>
                 )}

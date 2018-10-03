@@ -51,9 +51,6 @@ export const loginUser = (userData) => {
     }
   })
   .then(res => res.json())
-  .then(user => {
-    localStorage.setItem('token', user.jwt)
-  })
 }
 
 // export const redirectRegistered = (userData) => {

@@ -3,8 +3,9 @@
     src: url('../fonts/script.ttf');
 } */
 @font-face {
-  font-family: 'Satisfy', cursive;
+  font-family: 'Satisfy', cursive, script;
   src: url('https://fonts.googleapis.com/css?family=Satisfy');
+  src: url('../fonts/script.ttf');
 }
 .splash-info {
   position: absolute;
@@ -33,4 +34,16 @@
 .button-text {
   text-align: center;
   margin: 5px;
+}
+
+.subheader {
+  font-family: script;
+  text-align: center;
+  color: #FFADB9;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.subheader h2 {
+  font-family: script;
 }

@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import { connect } from 'react-redux';
 import Pagination from '../hocs/Pagination'
+import withAuth from '../hocs/withAuth';
 
 const styles = theme => ({
   root: {

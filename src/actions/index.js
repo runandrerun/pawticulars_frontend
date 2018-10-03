@@ -1,6 +1,7 @@
 import { fetchDog, fetchDogs, fetchUpdateDog, createDog } from '../adapters/dogsAdapter';
 import { fetchUser, fetchUsers, fetchUpdateUser, createUser, loginUser, reAuth } from '../adapters/usersAdapter'
 import { fetchDogParks, fetchDogPark } from '../adapters/dogParksAdapter';
+
 export const selectUser = (user) => {
   return {
     type: 'SELECT_USER',
@@ -37,10 +38,12 @@ export const editUser = (user) => {
 
 export const logUser = (userData) => {
   return (dispatch) => {
-    loginUser(userData)
+    return loginUser(userData)
     .then(userRes => {
       dispatch(currentUser(userRes))
+      // console.log('Inside of logUser in index.js', userRes)
       localStorage.setItem('token', userRes.jwt)
+      return userRes
     })
   }
 }

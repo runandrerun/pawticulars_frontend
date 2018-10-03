@@ -7,6 +7,7 @@ import DetailDogCard from '../components/DetailDogCard';
 import DogParkCard from '../components/DogParkCard';
 import { loadDogParks } from '../actions';
 import AllDogParks from './AllDogParks';
+import withAuth from '../hocs/withAuth';
 
 class DogContainer extends Component {
 
@@ -73,4 +74,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { loadDogParks })(DogContainer);
+export default withAuth(connect(mapStateToProps, { loadDogParks })(DogContainer));
