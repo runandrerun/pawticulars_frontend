@@ -86,7 +86,7 @@ class DetailDogCard extends React.Component {
         />
         <CardMedia
           className={classes.media}
-          image={require('./panda.jpg')}
+          image={this.props.dog.avatar}
           title="Contemplative Reptile"
         />
         <CardContent>
@@ -96,7 +96,7 @@ class DetailDogCard extends React.Component {
                   <ListItem>
                   <Tooltip title="Breed">
                   <ListItemAvatar>
-                  {this.props.dog.gender === 'Male' ? <img className={classes.genderIcon}src={require('../icons/dogseatboy.svg')}/> : <img src={require('../icons/dogseatgirl.svg')}/>}
+                  {this.props.dog.gender === 'Male' ? <img className={classes.genderIcon}src={require('../icons/dogseatboy.svg')}/> : <img className={classes.genderIcon}src={require('../icons/dogseatgirl.svg')}/>}
                 </ListItemAvatar>
                 </Tooltip>
 
@@ -109,7 +109,7 @@ class DetailDogCard extends React.Component {
                   <ListItem>
                   <Tooltip title="Size">
                   <ListItemAvatar>
-                      {this.props.dog.gender === 'Male' ? <img className={classes.genderIcon}src={require('../icons/boyweight.svg')}/> : <img src={require('../icons/girlweight.svg')}/>}
+                      {this.props.dog.gender === 'Male' ? <img className={classes.genderIcon}src={require('../icons/boyweight.svg')}/> : <img className={classes.genderIcon}src={require('../icons/girlweight.svg')}/>}
                   </ListItemAvatar>
                   </Tooltip>
                     <ListItemText
@@ -120,7 +120,7 @@ class DetailDogCard extends React.Component {
                   <ListItem>
                   <Tooltip title="Temperament">
                   <ListItemAvatar>
-                      {this.props.dog.gender === 'Male' ? <img alt='Temperament' className={classes.genderIcon}src={require('../icons/boyheart.svg')}/> : <img src={require('../icons/girlheart.svg')}/>}
+                      {this.props.dog.gender === 'Male' ? <img alt='Temperament' className={classes.genderIcon}src={require('../icons/boyheart.svg')}/> : <img className={classes.genderIcon}src={require('../icons/girlheart.svg')}/>}
                   </ListItemAvatar>
                   </Tooltip>
                     <ListItemText
@@ -131,7 +131,7 @@ class DetailDogCard extends React.Component {
                   <ListItem>
                   <Tooltip title="Energy">
                   <ListItemAvatar>
-                      {this.props.dog.gender === 'Male' ? <img className={classes.genderIcon}src={require('../icons/boyenergy.svg')}/> : <img src={require('../icons/girlenergy.svg')}/>}
+                      {this.props.dog.gender === 'Male' ? <img className={classes.genderIcon}src={require('../icons/boyenergy.svg')}/> : <img className={classes.genderIcon}src={require('../icons/girlenergy.svg')}/>}
                   </ListItemAvatar>
                   </Tooltip>
                     <ListItemText
@@ -142,7 +142,7 @@ class DetailDogCard extends React.Component {
                   <ListItem>
                   <Tooltip title="Gender">
                   <ListItemAvatar>
-                    {this.props.dog.gender === 'Male' ? <img className={classes.genderIcon}src={require('../icons/masculine.svg')}/> : <img src={require('../icons/femmedog.svg')}/>}
+                    {this.props.dog.gender === 'Male' ? <img className={classes.genderIcon}src={require('../icons/masculine.svg')}/> : <img className={classes.genderIcon}src={require('../icons/femmedog.svg')}/>}
                   </ListItemAvatar>
                   </Tooltip>
                     <ListItemText

@@ -58,7 +58,7 @@ class Welcome extends Component {
   };
 
   handleCancel = () => {
-    this.setState({ signupOpen: false })
+    this.setState({ loginOpen: false })
   };
 
   handleSignupClose = () => {
@@ -76,8 +76,7 @@ class Welcome extends Component {
     // console.log('inside values', values)
     // console.log('inside values', formikApi)
     this.props.logUser(values)
-    .then(this.returnRedirect)
-
+    // .then(this.returnRedirect)
   };
 
     returnRedirect = (userRes) => {
@@ -144,14 +143,18 @@ class Welcome extends Component {
         <br />
         {isSubmitting && <LinearProgress />}
         <br />
-        <Button
-          variant="raised"
-          color="primary"
-          disabled={isSubmitting}
-          onClick={submitForm}
-        >
+        <DialogActions>
+          <Button
+            color="primary"
+            disabled={isSubmitting}
+            onClick={submitForm}
+            >
           Submit
         </Button>
+          <Button onClick={this.handleCancel} color="secondary" autoFocus>
+            Cancel
+          </Button>
+        </DialogActions>
       </Form>
       )}
       />

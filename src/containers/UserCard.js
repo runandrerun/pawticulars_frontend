@@ -44,7 +44,7 @@ const UserCard = ({user}) => (
         <Icon name='heart' color='red'/>
         {user.dogs.length} {user.dogs.length === 1 ? 'Dog' : 'Dogs'}
       </a>
-      '|'
+      {'  |  '}
       <a>
         <Icon name='user' color='blue'/>
         {user.all_friends.length} {user.all_friends.length === 1 ? 'Friend' : 'Friends'}

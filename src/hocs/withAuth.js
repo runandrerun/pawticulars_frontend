@@ -7,9 +7,9 @@ const withAuth = (WrappedComponent) => {
       if (this.props.loggedIn) {
         return <WrappedComponent {...this.props} />
       } else if (localStorage.getItem('token')) {
-        return <div className='container'> Loading </div>
+        return <Redirect to='/profile'/>
       } else {
-      return  <Redirect to='/' />
+        return  <Redirect to='/' />
     }
   }
 }

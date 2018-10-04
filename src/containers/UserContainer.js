@@ -8,6 +8,7 @@ import Nav from '../components/Nav';
 import UserActivity from './UserActivity';
 import { Feed, Icon } from 'semantic-ui-react';
 import withAuth from '../hocs/withAuth';
+import Loader from './Loader';
 
 
 class UserContainer extends Component {
@@ -33,7 +34,6 @@ class UserContainer extends Component {
     console.log('UserContainer', this.props.user.messages)
     if (localStorage.getItem('token')) {
     return (
-
       <div>
       <Grid centered columns={3}>
       <Grid.Column>
@@ -62,11 +62,9 @@ class UserContainer extends Component {
       </div>
     )
   } else {
-  return (<div>
-          Loading
-            </div>)
-          }
-        }
+  return <Loader />
+    }
+  }
 }
 
 const mapStateToProps = (state) => {
