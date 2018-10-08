@@ -1,0 +1,14 @@
+.park-alignment {
+  display: flex;
+  justify-content: center;
+}
+
+.outside-dog {
+  display: flex;
+  justify-content: center;
+}
+
+.align-all-info {
+  display: flex;
+  justify-content: center;
+}

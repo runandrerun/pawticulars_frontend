@@ -7,6 +7,8 @@ import FaceIcon from '@material-ui/icons/Face';
 import DoneIcon from '@material-ui/icons/Done';
 import { selectedDogPark } from '../actions';
 import { connect } from 'react-redux';
+import MiniDogProfile from './MiniDogProfile';
+
 
 const styles = theme => ({
   root: {
@@ -19,7 +21,24 @@ const styles = theme => ({
   },
 });
 
+const openProfile = false
+
+function handleDelete() {
+  alert('You clicked the delete icon.'); // eslint-disable-line no-alert
+}
+
+function handleClick() {
+  let openProfile = true
+  return <MiniDogProfile />
+}
+
+function miniProfile(dogData) {
+  return <MiniDogProfile dog={dogData} />
+}
+
+
 function DogChips(props) {
+
   console.log('TESTESTESTEST', props)
   const { classes } = props;
   return (
@@ -29,6 +48,7 @@ function DogChips(props) {
               label={props.dog.name}
               className={classes.chip}
               color={props.dog.gender === 'Male' ? 'primary' : 'secondary'}
+              onClick={() => miniProfile(props.dog)}
             />
     )
   }

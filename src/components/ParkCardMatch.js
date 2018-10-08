@@ -11,8 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { Grid } from 'semantic-ui-react';
 import { Image } from 'semantic-ui-react';
 import { Divider, Container } from 'semantic-ui-react';
-
-
+import '../custom/DogParkCont.css';
 
 const styles = {
   card: {
@@ -36,7 +35,7 @@ function ParkCardMatch(props) {
   <Container textAlign='center'>
     <Grid.Column>
       <Divider horizontal>{props.dogPark[0].name}</Divider>
-      <Image src={props.dogPark[0].images} size='large' rounded/>
+      <div className="outside-dog"><div><Image src={props.dogPark[0].images} size='large' rounded/></div></div>
       <Divider horizontal>Location</Divider>
       {props.dogPark[0].location}
       <Divider horizontal>Description</Divider>

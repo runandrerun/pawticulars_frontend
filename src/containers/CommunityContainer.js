@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Feed, Icon } from 'semantic-ui-react';
 import MessageCard from '../components/MessageCard';
 import withAuth from '../hocs/withAuth';
+import ResponseForm from '../forms/ResponseForm';
 
 class CommunityContainer extends Component{
 
@@ -17,6 +18,7 @@ class CommunityContainer extends Component{
     return (
       <Feed>
         {this.props.comm ? this.createMessages() : null}
+        {this.props.comm ? <ResponseForm comm={this.props.comm}/> : null }
       </Feed>
     )
   }

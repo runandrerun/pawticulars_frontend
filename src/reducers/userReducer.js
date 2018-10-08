@@ -13,6 +13,16 @@ const userReducer = (state = initialState, action) => {
       users: action.payload.users
     }
 
+    case 'CREATE_MESSAGE':
+    console.log('inside reducer', action.payload.messageData)
+    return {
+      ...state,
+      currentUser: {
+        ...state.currentUser,
+        messages: action.payload.messageData
+    }
+  }
+
     case 'CURRENT_USER':
     return {
       ...state,

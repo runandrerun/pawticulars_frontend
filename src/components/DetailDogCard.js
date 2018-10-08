@@ -25,6 +25,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import Tooltip from '@material-ui/core/Tooltip';
+import DogChips from './DogChips';
 
 const styles = theme => ({
   card: {
@@ -68,6 +69,12 @@ class DetailDogCard extends React.Component {
     this.setState(state => ({ expanded: !state.expanded }));
   };
 
+  createDogChips = () => {
+    return this.props.dog.matches.map(match => {
+      return <DogChips key={match.name} dog={match}/>
+    })
+  }
+
 
   render() {
     const { classes } = this.props;
@@ -87,7 +94,7 @@ class DetailDogCard extends React.Component {
         <CardMedia
           className={classes.media}
           image={this.props.dog.avatar}
-          title="Contemplative Reptile"
+          title={this.props.dog.name}
         />
         <CardContent>
 
@@ -162,14 +169,14 @@ class DetailDogCard extends React.Component {
             })}
             onClick={this.handleExpandClick}
             aria-expanded={this.state.expanded}
-            aria-label="Show more"
+            aria-label="Matches"
           >
             <ExpandMoreIcon />
           </IconButton>
         </CardActions>
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            {this.props.dog.bio}
+            {this.props.dog ? this.createDogChips() : null}
           </CardContent>
         </Collapse>
       </Card>

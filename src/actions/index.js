@@ -1,6 +1,7 @@
 import { fetchDog, fetchDogs, fetchUpdateDog, createDog } from '../adapters/dogsAdapter';
 import { fetchUser, fetchUsers, fetchUpdateUser, createUser, loginUser, reAuth } from '../adapters/usersAdapter'
 import { fetchDogParks, fetchDogPark } from '../adapters/dogParksAdapter';
+import { createMessage } from '../adapters/communityAdapter';
 
 export const selectUser = (user) => {
   return {
@@ -101,7 +102,27 @@ export const loadDogPark = (dogPark) => {
   }
 }
 
+export const newMessage = (messageData) => {
+  return (dispatch) => {
+    console.log('Inside New Message', messageData)
+    const token = localStorage.getItem('token')
+    createMessage(messageData, token)
+      .then(msgRes => {
+        dispatch(setMessage(msgRes))
+      })
+  }
+}
+
 ////////
+
+const setMessage = (messageData) => {
+  return {
+    type: 'CREATE_MESSAGE',
+    payload: {
+      messageData
+    }
+  }
+}
 
 const setDogParks = (dogParks) => {
   return {

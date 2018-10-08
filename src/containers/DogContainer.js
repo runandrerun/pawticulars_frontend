@@ -8,6 +8,7 @@ import DogParkCard from '../components/DogParkCard';
 import { loadDogParks } from '../actions';
 import AllDogParks from './AllDogParks';
 import withAuth from '../hocs/withAuth';
+import '../custom/DogParkCont.css';
 
 class DogContainer extends Component {
 
@@ -40,25 +41,29 @@ class DogContainer extends Component {
   render() {
     // console.log('UserContainer', this.props.user.dogs)
     return (
-      <div>
-      <Grid centered columns={3}>
+      <div className='align-all-info'>
+      <div className='anthony'>
+      <Grid centered columns={1}>
       <Grid.Column>
       <Segment padded='very'>
       <Header as='h2' textAlign="center">{this.state.dogParkName}</Header>
       <Divider />
-      <DogParkCard fetchDogParkName={this.fetchDogParkName} doggyPark={this.props.doggyPark} />
-
-
+      <div className="park-alignment">
+        <DogParkCard fetchDogParkName={this.fetchDogParkName} doggyPark={this.props.doggyPark} />
+      </div>
+      <div>
           <Card.Group>
 
-                <Rail close='very' position='left'>
+                <Rail close='very'position='left'>
                 {this.props.user.dogs ? this.userDogs() : null}
                 </Rail>
           </Card.Group>
+        </div>
           </Segment>
           </Grid.Column>
 
           </Grid>
+          </div>
       </div>
     )
   }

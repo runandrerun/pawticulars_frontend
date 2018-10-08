@@ -38,7 +38,7 @@ class DogParkContainer extends Component {
   render() {
     // console.log('UserContainer', this.props.user.dogs)
     return (
-      <Container>
+      <Container centered>
       <div>
       <Grid centered columns={3}>
 
